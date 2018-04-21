@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue">
+        </script>
+    </head>
+
+</html>
+<body>
+        <main>
+            <table border="1">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Cedula</th>
+                    <th>Edad</th>
+                </thead>
+                <tbody>                    
+                    <tr v-for="(item ,idx) in users">
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.apellido}}</td>
+                        <td>{{item.cedula}}</td>
+                        <th>{{item.edad}}</th>
+                    </tr>
+                </tbody>
+            </table border="1">
+
+            <form @submit.prevent="createUser">
+                <input type="text" placeholder="nombre" v-model="objUser.nombre"/>
+                <br>
+                <input type="text" placeholder="apellido" v-model="objUser.apellido"/>
+                <br>
+                <input type="text" placeholder="cedula" v-model="objUser.cedula"/>
+                <br>
+                <input type="text" placeholder="edad" v-model="objUser.edad"/>
+                <br>
+                <input type="submit" value="GUARDAR"/>
+            </form>
+            {{ $data }}
+
+        </main>
+</body>
+        <script type="text/javascript">
+            new Vue({
+                el:'main',
+                data:{
+                    users:[
+                    ],
+                    objUser:{'nombre':null, 'apellido':null ,'cedula':null , 'edad':null}
+                },
+                methods:{
+                    createUser(){    
+                        this.users.unshift(this.objUser);
+                        this.orderUsers;
+                        this.objUser={'nombre':null, 'apellido':null}
+                    }
+                },
+                computed:{
+                    orderUsers(){
+                        return this.users.sort(function(a,b){
+                            if(a.nombre > b.nombre){
+                                return 1;
+                            }
+                            if(a.nombre < b.nombre){
+                                return -1;
+                            }
+                            return 0;
+                        });
+                    }
+                }
+            });
+        </script>
